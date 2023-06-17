@@ -1,0 +1,251 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"-->
+<!--      lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>My App</title>-->
+<!--  <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--  <link th:fragment="custom-css" rel="stylesheet" th:href="@{/css/style.css}">-->
+<!--</head>-->
+<!--<body class="d-flex flex-column h-100">-->
+<!--<header th:fragment="header">-->
+<!--  <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--    <div class="container-fluid">-->
+<!--      <a class="navbar-brand" href="/">HUTECH</a>-->
+<!--      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"-->
+<!--              data-bs-target="#navbarSupportedContent"-->
+<!--              aria-controls="navbarSupportedContent"-->
+<!--              aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--      </button>-->
+<!--      <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--        <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link active" aria-current="page" href="/">Home</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">-->
+<!--            <a class="nav-link" href="/books">-->
+<!--              List Book-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--            <a class="nav-link" href="/books/add">-->
+<!--              Add Book-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">-->
+<!--            <a class="nav-link" href="/cart">-->
+<!--              Cart-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">-->
+<!--            <a class="nav-link" href="/chat">-->
+<!--              Chat-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li sec:authorize="isAuthenticated()">-->
+<!--            <form th:action="@{/logout}" method="post">-->
+<!--              <button class="btn btn-outline-danger" type="submit">Logout</button>-->
+<!--            </form>-->
+<!--          </li>-->
+<!--          <li sec:authorize="!isAuthenticated()">-->
+<!--            <a class="btn btn-outline-primary" href="/login">-->
+<!--              Login-->
+<!--            </a>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </nav>-->
+<!--</header>-->
+<!--<div class="container">-->
+<!--  <div th:fragment="content"></div>-->
+<!--</div>-->
+<!--<footer th:fragment="footer" class="footer mt-auto py-3 bg-light">-->
+<!--  <div class="container text-center">Copyright &copy;-->
+<!--    <span th:text="${#dates.year(#dates.createNow())}"></span>-->
+<!--    <a href="https://www.hutech.edu.vn/">HUTECH Education</a>-->
+<!--  </div>-->
+<!--  <script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--  <script th:src="@{/js/jquery-3.7.0.min.js}"></script>-->
+<!--</footer>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My App</title>
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link th:fragment="custom-css" rel="stylesheet" th:href="@{/css/style.css}">
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/templatemo_style.css}">
+  <style>
+     /*Tùy chỉnh giao diện và màu sắc*/
+    /*body {*/
+    /*  background-color: #f8f9fa;*/
+    /*}*/
+
+    /*.navbar {*/
+    /*  background-color: #ffffff;*/
+    /*}*/
+     .navbar {
+       background-color: #8B4513; /* Màu nền thanh điều hướng */
+     }
+
+     .navbar-brand,
+     .nav-link {
+       color: #343a40; /* Màu chữ chung */
+     }
+
+     .nav-link.active,
+     .nav-link:hover {
+       color: #007bff; /* Màu chữ cho liên kết hoạt động và khi di chuột qua */
+     }
+
+     .btn-outline-primary,
+     .btn-outline-danger {
+       color: #fff;
+       border-color: transparent;
+       border-width: 1px; /* Kích thước border */
+       border-radius: 0.25rem;
+     }
+
+     .btn-outline-primary {
+       background-color: #007bff;
+     }
+
+     .btn-outline-primary:hover {
+       background-color: #0056b3; /* Màu nền khi di chuột qua */
+     }
+
+     .btn-outline-danger {
+       background-color: #dc3545;
+     }
+
+     .btn-outline-danger:hover {
+       background-color: #b52d39; /* Màu nền khi di chuột qua */
+     }
+
+
+
+    /* .navbar-brand {*/
+    /*  color: #343a40;*/
+    /*  font-weight: bold;*/
+    /*}*/
+
+    /*.nav-link {*/
+    /*  color: #343a40;*/
+    /*}*/
+
+    /*.nav-link.active,*/
+    /*.nav-link:hover {*/
+    /*  color: #007bff;*/
+    /*}*/
+
+    /*.btn-outline-primary {*/
+    /*  color: #007bff;*/
+    /*  border-color: #007bff;*/
+    /*}*/
+
+    /*.btn-outline-primary:hover {*/
+    /*  background-color: #007bff;*/
+    /*  color: #ffffff;*/
+    /*}*/
+
+    /*.btn-outline-danger {*/
+    /*  color: #dc3545;*/
+    /*  border-color: #dc3545;*/
+    /*}*/
+
+    /*.btn-outline-danger:hover {*/
+    /*  background-color: #dc3545;*/
+    /*  color: #ffffff;*/
+    /*}*/
+
+    /*.footer {*/
+    /*  background-color: #f8f9fa;*/
+    /*}*/
+
+    /*.footer a {*/
+    /*  color: #343a40;*/
+    /*}*/
+
+  </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+<header th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
+    <div class="container-fluid">
+<!--      <a class="navbar-brand" href="/">HUTECH</a>-->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="templatemo_container">
+        <div id="templatemo_menu">
+          <ul>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/books">List Book</a></li>
+            <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>
+            <li class="nav-item"><a class="nav-link" href="/cart">Cart</a></li>
+            <li sec:authorize="!isAuthenticated()">
+              <a class="btn btn-outline-primary btn-sm" href="/login">Login</a>
+            </li>
+
+
+            <li sec:authorize="isAuthenticated()">
+              <form th:action="@{/logout}" method="post">
+                <button class="btn btn-outline-danger btn-sm" type="submit">Logout</button>
+              </form>
+            </li>
+          </ul>
+        </div> <!-- end of menu -->
+
+<!--        <div id="templatemo_header">-->
+<!--          <div id="templatemo_special_offers">-->
+<!--            <p>-->
+<!--              <span>25%</span> discounts for-->
+<!--              purchase over $80-->
+<!--            </p>-->
+<!--            <a href="subpage.html" style="margin-left: 50px;">Read more...</a>-->
+<!--          </div>-->
+
+<!--          <div id="templatemo_new_books">-->
+<!--            <ul>-->
+<!--              <li>Suspen disse</li>-->
+<!--              <li>Maece nas metus</li>-->
+<!--              <li>In sed risus ac feli</li>-->
+<!--            </ul>-->
+<!--            <a href="subpage.html" style="margin-left: 50px;">Read more...</a>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </nav>
+
+</header>
+<div class="container">
+  <div th:fragment="content"></div>
+</div>
+<footer th:fragment="footer" class="footer mt-auto py-3">
+  <div class="container text-center">
+    &copy;
+    <span th:text="${#dates.year(#dates.createNow())}"></span>
+    <p>HUTECH Education</p>
+  </div>
+</footer>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery-3.7.0.min.js}"></script>
+</body>
+
+</html>
