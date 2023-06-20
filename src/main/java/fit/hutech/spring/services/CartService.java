@@ -79,7 +79,6 @@ public class CartService {
             items.setBook(bookRepository.findById(item.getBookId()).orElseThrow());
             itemInvoiceRepository.save(items);
         });
-
         removeCart(session);
     }
 }

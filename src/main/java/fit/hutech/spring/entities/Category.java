@@ -29,6 +29,9 @@ public class Category {
     @NotBlank(message = "Name must not be blank")
     private String name;
 
+    @Column(name = "description",nullable = true,length = 255)
+    private String description;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Book> books = new ArrayList<>();

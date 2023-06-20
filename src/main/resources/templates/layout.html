@@ -135,48 +135,6 @@
 
 
 
-    /* .navbar-brand {*/
-    /*  color: #343a40;*/
-    /*  font-weight: bold;*/
-    /*}*/
-
-    /*.nav-link {*/
-    /*  color: #343a40;*/
-    /*}*/
-
-    /*.nav-link.active,*/
-    /*.nav-link:hover {*/
-    /*  color: #007bff;*/
-    /*}*/
-
-    /*.btn-outline-primary {*/
-    /*  color: #007bff;*/
-    /*  border-color: #007bff;*/
-    /*}*/
-
-    /*.btn-outline-primary:hover {*/
-    /*  background-color: #007bff;*/
-    /*  color: #ffffff;*/
-    /*}*/
-
-    /*.btn-outline-danger {*/
-    /*  color: #dc3545;*/
-    /*  border-color: #dc3545;*/
-    /*}*/
-
-    /*.btn-outline-danger:hover {*/
-    /*  background-color: #dc3545;*/
-    /*  color: #ffffff;*/
-    /*}*/
-
-    /*.footer {*/
-    /*  background-color: #f8f9fa;*/
-    /*}*/
-
-    /*.footer a {*/
-    /*  color: #343a40;*/
-    /*}*/
-
   </style>
 </head>
 
@@ -184,7 +142,7 @@
 <header th:fragment="header">
   <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
     <div class="container-fluid">
-<!--      <a class="navbar-brand" href="/">HUTECH</a>-->
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -197,6 +155,7 @@
             </li>
             <li class="nav-item"><a class="nav-link" href="/books">List Book</a></li>
             <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>
+            <li class="nav-item"><a class="nav-link" href="/categories">Category</a></li>
             <li class="nav-item"><a class="nav-link" href="/cart">Cart</a></li>
             <li sec:authorize="!isAuthenticated()">
               <a class="btn btn-outline-primary btn-sm" href="/login">Login</a>
@@ -211,24 +170,6 @@
           </ul>
         </div> <!-- end of menu -->
 
-<!--        <div id="templatemo_header">-->
-<!--          <div id="templatemo_special_offers">-->
-<!--            <p>-->
-<!--              <span>25%</span> discounts for-->
-<!--              purchase over $80-->
-<!--            </p>-->
-<!--            <a href="subpage.html" style="margin-left: 50px;">Read more...</a>-->
-<!--          </div>-->
-
-<!--          <div id="templatemo_new_books">-->
-<!--            <ul>-->
-<!--              <li>Suspen disse</li>-->
-<!--              <li>Maece nas metus</li>-->
-<!--              <li>In sed risus ac feli</li>-->
-<!--            </ul>-->
-<!--            <a href="subpage.html" style="margin-left: 50px;">Read more...</a>-->
-<!--          </div>-->
-<!--        </div>-->
       </div>
     </div>
   </nav>
@@ -241,7 +182,7 @@
   <div class="container text-center">
     &copy;
     <span th:text="${#dates.year(#dates.createNow())}"></span>
-    <p>HUTECH Education</p>
+    <p>Our Website.All rights reserved.</p>
   </div>
 </footer>
 <script th:src="@{/js/bootstrap.min.js}"></script>
@@ -249,3 +190,47 @@
 </body>
 
 </html>
+
+
+
+/* .navbar-brand {*/
+/*  color: #343a40;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*.nav-link {*/
+/*  color: #343a40;*/
+/*}*/
+
+/*.nav-link.active,*/
+/*.nav-link:hover {*/
+/*  color: #007bff;*/
+/*}*/
+
+/*.btn-outline-primary {*/
+/*  color: #007bff;*/
+/*  border-color: #007bff;*/
+/*}*/
+
+/*.btn-outline-primary:hover {*/
+/*  background-color: #007bff;*/
+/*  color: #ffffff;*/
+/*}*/
+
+/*.btn-outline-danger {*/
+/*  color: #dc3545;*/
+/*  border-color: #dc3545;*/
+/*}*/
+
+/*.btn-outline-danger:hover {*/
+/*  background-color: #dc3545;*/
+/*  color: #ffffff;*/
+/*}*/
+
+/*.footer {*/
+/*  background-color: #f8f9fa;*/
+/*}*/
+
+/*.footer a {*/
+/*  color: #343a40;*/
+/*}*/

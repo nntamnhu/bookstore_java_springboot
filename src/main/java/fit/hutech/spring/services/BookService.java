@@ -75,12 +75,6 @@ import java.util.Optional;
 public class BookService {
     private final IBookRepository bookRepository;
 
-//    @PreAuthorize("hasAnyAuthority('USER') or hasAnyAuthority('ADMIN')")
-//    public List<Book> getAllBooks(Integer pageNo, Integer pageSize, String sortBy) {
-//        PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-//        Page<Book> bookPage = bookRepository.findAll(pageRequest);
-//        return bookPage.getContent();
-//    }
     @PreAuthorize("hasAnyAuthority('USER') or hasAnyAuthority('ADMIN')")
     public List<Book> getAllBooks(Integer pageNo, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
@@ -103,6 +97,12 @@ public class BookService {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public Book save(Book book) {
+        bookRepository.save(book);
+        return book;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void updateBook(@NotNull Book book) {
         Book existingBook = bookRepository.findById(book.getId()).orElse(null);
         Objects.requireNonNull(existingBook).setTitle(book.getTitle());
@@ -121,5 +121,6 @@ public class BookService {
     public List<Book> searchBook(String keyword) {
         return bookRepository.searchBook(keyword);
     }
+
 }
 

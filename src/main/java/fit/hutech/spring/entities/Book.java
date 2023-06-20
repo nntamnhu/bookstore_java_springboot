@@ -25,6 +25,24 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true, length = 255)
+    private String photourl;
+
+    @Transient
+    public String getPhotosImagePath() {
+        if(photourl == null || id == null)
+            return null;
+        return "/photos/" + id + "/" + photourl;
+    }
+
+
+    public String getPhotourl() {
+        return photourl;
+    }
+    public void setPhotourl(String photourl) {
+        this.photourl = photourl;
+    }
+
     @Column(name = "title", length = 50, nullable = false)
     @Size(min = 1, max = 50, message = "Title must be between 1 and 50 characters")
     @NotBlank(message = "Title must not be blank")
@@ -39,6 +57,8 @@ public class Book {
     @Positive(message = "Price must be greater than 0")
     private Double price;
 
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ValidCategoryId
@@ -48,6 +68,8 @@ public class Book {
     @OneToMany(mappedBy = "book")
     @ToString.Exclude
     private List<ItemInvoice> itemInvoices = new ArrayList<>();
+
+
 
     @Override
     public boolean equals(Object o) {

@@ -12,7 +12,7 @@
 <th:block th:replace="~{layout::header}"></th:block>
 <div class="container">
   <h1>Add Book</h1>
-  <form th:action="@{/books/add}" th:object="${book}" method="post">
+  <form th:action="@{/books/save}" th:object="${book}" method="post" enctype="multipart/form-data">
     <div class="col-6 mb-3">
       <label class="form-label" for="title">Title:</label><span class="text-danger">*</span>
       <input class="form-control" type="text" placeholder="Enter title" th:field="*{title}" id="title" required autofocus >

@@ -5,19 +5,24 @@ import fit.hutech.spring.daos.Item;
 import fit.hutech.spring.services.BookService;
 import fit.hutech.spring.services.CartService;
 import fit.hutech.spring.services.CategoryService;
+import fit.hutech.spring.utils.FileUploadUtil;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -30,25 +35,6 @@ public class BookController {
 
     private final CartService cartService;
     private static final int PAGE_SIZE = 10;
-
-    //phan trang duoc nhung chua dung y
-//    @GetMapping
-//    public String showAllBooks(
-//            @RequestParam(defaultValue = "0") Integer pageNo,
-//            Model model
-//    ) {
-//        int pageSize = 10;
-//        String sortBy = "id";
-//        List<Book> books = bookService.getAllBooks(pageNo, pageSize, sortBy);
-//        int totalPages = (int) Math.ceil((double) bookService.getAllBooksCount() / pageSize);
-//
-//        model.addAttribute("books", books);
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", totalPages);
-//        model.addAttribute("categories", categoryService.getAllCategories());
-//
-//        return "book/list";
-//    }
 
     @GetMapping
     public String showAllBooks(
@@ -75,22 +61,13 @@ public class BookController {
         return "book/list";
     }
 
-
-
-
-
-
-//    @GetMapping cu
-//    public String showAllBooks(@NotNull Model model,
-//                               @RequestParam(defaultValue = "0") Integer pageNo,
-//                               @RequestParam(defaultValue = "20") Integer pageSize,
-//                               @RequestParam(defaultValue = "id") String sortBy) {
-//        model.addAttribute("books", bookService.getAllBooks(pageNo, pageSize, sortBy));
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", bookService.getAllBooks(pageNo, pageSize, sortBy).size() / pageSize);
-//        model.addAttribute("categories", categoryService.getAllCategories());
-//        return "book/list";
-//    }
+    @GetMapping("/new")
+    public String showNewBookPage(Model model) {
+        Book book = new Book();
+        model.addAttribute("book", book);
+        model.addAttribute("categories", categoryService.listAll());
+        return "book/create";
+    }
 
     @GetMapping("/add")
     public String addBookForm(@NotNull Model model) {
@@ -116,6 +93,47 @@ public class BookController {
         bookService.addBook(book);
         return "redirect:/books";
     }
+
+    @PostMapping("/save")
+    public String saveBook(@ModelAttribute("book") Book book, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        book.setPhotourl(fileName);
+        Book saveBook = bookService.save(book);
+        if (!multipartFile.getOriginalFilename().isBlank()) {
+            String uploadDir = "photos/" + saveBook.getId();
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }
+        return "redirect:/books";
+    }
+
+//    @PostMapping("/add")
+//    public String addBook(
+//            @Valid @ModelAttribute("book") Book book,
+//            @NotNull BindingResult bindingResult,
+//            @RequestParam("image") MultipartFile multipartFile,
+//            Model model) throws IOException {
+//
+//        if (bindingResult.hasErrors()) {
+//            var errors = bindingResult.getAllErrors()
+//                    .stream()
+//                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+//                    .toArray(String[]::new);
+//            model.addAttribute("errors", errors);
+//            model.addAttribute("categories", categoryService.getAllCategories());
+//            return "book/add";
+//        }
+//
+//        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//        book.setPhotourl(fileName);
+//        Book saveBook = bookService.save(book);
+//        if (!multipartFile.getOriginalFilename().isBlank()) {
+//            String uploadDir = "photos/" + saveBook.getId();
+//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//        }
+//
+//        return "redirect:/books";
+//    }
+
 
     @GetMapping("/edit/{id}")
     public String editBookForm(@NotNull Model model, @PathVariable long id) {
@@ -151,6 +169,8 @@ public class BookController {
                 );
         return "redirect:/books";
     }
+
+
 
     @GetMapping("/search")
     public String searchBook(

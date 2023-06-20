@@ -41,23 +41,31 @@
     <thead>
       <tr>
         <th><a th:href="@{/books(pageNo=${currentPage}, sortBy= 'id')}">Id</a></th>
+
+          <th><a th:href="@{/books(pageNo=${currentPage}, sortBy= 'photourl')}">Images</a></th>
+
         <th><a th:href="@{/books(pageNo=${currentPage}, sortBy= 'title')}">Title</a></th>
+
         <th><a th:href="@{/books(pageNo=${currentPage}, sortBy= 'author')}">Author</a></th>
+
         <th><a th:href="@{/books(pageNo=${currentPage}, sortBy= 'price')}">Price</a></th>
+
         <th><a th:href="@{/books(pageNo=${currentPage}, sortBy= 'category')}">Category</a></th>
+
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr th:each="book : ${books}">
         <td th:text="${book.getId()}"></td>
+          <td><img
+                  th:src="@{'/photos/' + ${book.id} + '/' + ${book.photourl}}"
+                  style="width: 100px; height: 100px;" /></td>
         <td th:text="${book.getTitle()}"></td>
         <td th:text="${book.getAuthor()}"></td>
         <td th:text="${book.getPrice()}"></td>
         <td th:text="${book.getCategory().getName()}"></td>
-<!--        <td>-->
-<!--          <img th:src="'uploads/'  + ${book.getImageUrl()}" width="100" height="100" alt="Book Image">-->
-<!--        </td>-->
+
         <td colspan="2">
           <a class="btn btn-primary"
              sec:authorize="hasAnyAuthority('ADMIN')"
@@ -80,13 +88,7 @@
     </tbody>
   </table>
 </div>
-<!--<nav aria-label="Page navigation example">-->
-<!--  <ul class="pagination justify-content-center pagination-sm" th:each="i : ${#numbers.sequence(0, totalPages)}">-->
-<!--    <li class="page-item" th:classappend="${currentPage == i} ? 'active'">-->
-<!--      <a class="page-link" th:href="@{/books(pageNo=${i})}" th:text="${i}"></a>-->
-<!--    </li>-->
-<!--  </ul>-->
-<!--</nav>-->
+
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center pagination-sm">
         <li class="page-item" th:class="${currentPage == 0} ? 'disabled'">

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <th:block th:replace="~{layout::link-css}"></th:block>
+  <th:block th:replace="~{layout::custom-css}"></th:block>
+  <title>Create New Category</title>
+  <title>Create New Book</title>
+  <style>
+    body {
+      background-color: #8B4513;
+    }
+    h1 {
+      color: yellow;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div align="center" class="container">
+  <h1>Create New Category</h1>
+  <br />
+  <form th:action="@{/categories/save}" th:object="${category}" method="post">
+    <div class="col-6 mb-3">
+      <label class="col-sm-2 col-form-label" style="color: yellow"> Description:</label>
+      <input class="form-control" type="text" th:field="*{description}"/>
+    </div>
+    <div class="col-6 mb-3">
+      <label class="col-sm-2 col-form-label" style="color: yellow"> Category Name:</label>
+      <input class="form-control" type="text" th:field="*{name}"/>
+    </div>
+    <button type ="submit" class="btn btn-primary">Save</button>
+  </form>
+  <br>
+  <a th:href="@{/books}">Back to List</a>
+</div>
+<th:block th:replace="~{layout::footer}"></th:block>
+</body>
+</html>

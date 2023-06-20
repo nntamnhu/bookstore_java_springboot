@@ -4,6 +4,7 @@ import fit.hutech.spring.entities.Category;
 import fit.hutech.spring.repositories.ICategoryRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,25 @@ public class CategoryService {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void deleteCategoryById(Long id) {
+        categoryRepository.deleteById(id);
+
+    }
+
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public List<Category> listAll() {
+        return categoryRepository.findAll();
+    }
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public void save(Category category) {
+        categoryRepository.save(category);
+    }
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public Category get(long id) {
+        return categoryRepository.findById(id).get();
+    }
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public void delete(long id) {
         categoryRepository.deleteById(id);
     }
 }

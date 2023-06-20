@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="~{layout::link-css}"></th:block>
+    <th:block th:replace="~{layout::custom-css}"></th:block>
+    <title>Category List</title>
+    <title>Create New Book</title>
+
+    <style>
+        body {
+            background-color: saddlebrown;
+            color: yellow;
+        }
+
+        table.table-bordered>tbody>tr:hover {
+            background-color: sandybrown;
+        }
+        td {
+            color: lightgray;
+        }
+        thead {
+            color: yellow;
+        }
+    </style>
+</head>
+
+
+<body>
+<header  th:replace="~{layout::header}"></header>
+<div class="container">
+    <h1>Category List</h1>
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+        <a href="categories/create">Create New Category</a><br/><br/>
+    </div>
+    <a href="books">Go to books</a><br/><br/>
+    <table border="1" class="table table-striped table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Description</th>
+            <th>Category Name</th>
+            <th>Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.id}">Category ID</td>
+            <td th:text="${category.description}">Description</td>
+            <td th:text="${category.name}">Category Name</td>
+            <td>
+                <div sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="btn btn-primary" th:href="@{'/categories/edit/'+${category.id}}">Edit</a>
+                    <a class="btn btn-danger" th:href="@{'/categories/delete/'+${category.id}}"
+                       onclick="return confirm('Are you sure you want to delete this category?')">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/categories}">Back to List</a>
+</div>
+<th:block th:replace="~{layout::footer}"></th:block>
+</body>
+
+</html>
+
+
+

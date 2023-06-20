@@ -12,7 +12,7 @@
 <th:block th:replace="~{layout::header}"></th:block>
 <div class="container">
   <h1>Edit Book</h1>
-  <form th:action="@{/books/edit}" th:object="${book}" method="post">
+  <form th:action="@{/books/save}" th:object="${book}" method="post" enctype="multipart/form-data">
     <input type="hidden" th:field="*{id}">
     <div class="col-6 mb-3">
       <label class="form-label" for="title">Title:</label>
@@ -37,8 +37,14 @@
                 th:text="${category.getName()}"
                 th:selected="${category.getId() == book.category.getId()}"></option>
       </select>
+
+      <div class="col-6 mb-3">
+        <label class="col-sm-2 col-form-label">Photos : </label>
+        <input class="form-control" type="file" name ="image" accept ="image/png,image/jpeg"/>
+      </div>
+
     </div>
-    <input type="submit" value="Save">
+    <button type ="submit" class="btn btn-primary">Save</button>
   </form>
   <br>
   <a th:href="@{/books}">Back to List</a>
