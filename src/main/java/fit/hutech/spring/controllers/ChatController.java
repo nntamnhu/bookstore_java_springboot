@@ -13,25 +13,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @CrossOrigin("*")
 public class ChatController {
-
     @GetMapping("/chat")
     public String chat() {
         return "book/chat";
     }
-
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         return chatMessage;
     }
-
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload @NotNull ChatMessage chatMessage,
-                               @NotNull SimpMessageHeaderAccessor headerAccessor) {
+    public ChatMessage addUser(@Payload @NotNull ChatMessage
+                                       chatMessage,
+                               @NotNull SimpMessageHeaderAccessor
+                                       headerAccessor) {
         var sessionAttributes = headerAccessor.getSessionAttributes();
         if (sessionAttributes != null)
             sessionAttributes.put("username", chatMessage.getSender());
         return chatMessage;
     }
 }
+

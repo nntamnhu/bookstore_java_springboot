@@ -154,9 +154,14 @@
               <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="/books">List Book</a></li>
-            <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>
-            <li class="nav-item"><a class="nav-link" href="/categories">Category</a></li>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')"><a class="nav-link" href="/books/add">Add Book</a></li>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')"><a class="nav-link" href="/categories">Category</a></li>
             <li class="nav-item"><a class="nav-link" href="/cart">Cart</a></li>
+<!--            <li class="nav-item"><a class="nav-link" href="/chat">Chat</a></li>-->
+              <!--            <a class="nav-link" href="/chat">-->
+              <!--              Chat-->
+              <!--            </a>-->
+              <!--          </li>-->
             <li sec:authorize="!isAuthenticated()">
               <a class="btn btn-outline-primary btn-sm" href="/login">Login</a>
             </li>

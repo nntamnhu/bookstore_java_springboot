@@ -35,7 +35,6 @@ public class Book {
         return "/photos/" + id + "/" + photourl;
     }
 
-
     public String getPhotourl() {
         return photourl;
     }
